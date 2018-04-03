@@ -1,0 +1,65 @@
+html{
+  font-size: 62,5%;
+}
+table {
+  border-collapse:collapse;
+}
+
+table,tr,td {
+  border:1px solid black;
+}
+
+td {
+  width:3.5rem;
+  height:3.5rem;
+}
+
+.col-1{
+  border-left: 3px solid blue;
+}
+.col-3,
+.col-6,
+.col-9 {
+  border-right: 3px solid blue;
+}
+.row-1 {
+  border-top: 3px solid blue;
+}
+.row-3,
+.row-6,
+.row-9 {
+  border-bottom: 3px solid blue;
+}
+
+.help-field,
+.main-field {
+  width:3.5rem;
+  border:none;
+  font-size: 2rem;
+}
+.help-field {
+  height:1rem;
+  font-size: 0.8rem;
+  border-bottom: 1px solid white;
+}
+.main-field {
+  height: 2.5rem;
+}
+input[class$="field"] {
+  /*
+  background: red;
+  */
+  text-align: center;
+}
+input:focus{
+  outline:none;
+}
+.sudoku-container {
+  margin-top: 4rem;
+}
+.validation-banner {
+  font-size: 1.8rem,
+}
+.invalid-field {
+  background: red;;
+}
