@@ -17,8 +17,11 @@ sprawdz czy w kwadracie
   const MAX_CELLS_TO_BE_POPULATED = 20;
   let MAX_LENGTH_HELP_FIELD = 6;
   let MAX_LENGTH_INPUT_FIELD = 1;
-  let ASCII_FOR_0 = 48;
-  let ASCII_FOR_9 = 57;
+  const ASCII_FOR_0 = 48;
+  const ASCII_FOR_9 = 57;
+  const ASCII_FOR_0_NmKp = 96;
+  const ASCII_FOR_9_NmKp = 105;
+  const ASCII_FOR_Tab = 9;
   let ROW_ATTRIBUTE = 'data-target-row';
   let COL_ATTRIBUTE = 'data-target-col';
   let SQR_ATTRIBUTE = 'data-target-sqr';
@@ -41,12 +44,27 @@ sprawdz czy w kwadracie
       let result;
       while(i < MAX_CELLS_TO_BE_POPULATED) {
         cell = populateCells()
-        result = isInvalidRow(cell)
-        i++;
+        if(!isValueInvalid(cell)){
+          i++;
+        } else {
+          clearValue(cell);
+        }
       };
       isTableBuild = true;
-      //console.log(populateCells());
     }
+  }
+
+  function isValueInvalid(cell){
+    if(isInvalidCol(cell)) {
+      return true;
+    }
+    if(isInvalidRow(cell)){
+      return true;
+    }
+    if(isInvalidSquare(cell)){
+      return true
+    }
+    return false
   }
 
   function createCell(row, col) {
@@ -71,25 +89,38 @@ sprawdz czy w kwadracie
     inputField.classList.add('main-field');
     inputField.setAttribute('pattern', INPUT_FIELD_PATTERN);
     inputField.setAttribute('maxLength', +MAX_LENGTH_INPUT_FIELD);
-
     inputField.setAttribute('data-target-row', `${row}`);
     inputField.setAttribute('data-target-col', `${col}`);
     inputField.setAttribute('data-target-sqr', `${squareNr}`);
-    /*
-    inputField.setAttribute('data-target-row', `row-${row}`);
-    inputField.setAttribute('data-target-col', `col-${col}`);
-    inputField.setAttribute('data-target-sqr', `sqr-${squareNr}`);
-    */
+
     return inputField;
   }
 
   function checkIsInputNumber(event) {
+    console.log(event.which);
     let input = event.which;
-    if (input >= ASCII_FOR_0 && input <= ASCII_FOR_9) {
+
+    if (
+      (input >= ASCII_FOR_0 && input <= ASCII_FOR_9)
+      || (input >= ASCII_FOR_0_NmKp && input <= ASCII_FOR_9_NmKp)
+      || input == ASCII_FOR_Tab
+    ) {
       return true;
     }
     return false;
   }
+  //new instead of three functions below
+  function isInvalidCollection(cell, attr) {
+    let rowAttrVal = cell.getAttribute(attr);
+    let rowCollection = getCollection(`[${attr}="${rowAttrVal}"]`);
+    rowCollection = removeInsertedCellFromCollection(rowCollection, cell);
+
+    if (rowCollection.length > 0) {
+      return doesCollectionContainInsertedValue(rowCollection, cell);
+    }
+    return true;
+  }
+
 
   function isInvalidRow(cell) {
     let rowAttrVal = cell.getAttribute(ROW_ATTRIBUTE);
@@ -102,22 +133,22 @@ sprawdz czy w kwadracie
     return true;
   }
 
-  function isInvalidCol(event) {
-    let colAttrVal = event.target.getAttribute(COL_ATTRIBUTE);
+  function isInvalidCol(cell) {
+    let colAttrVal = cell.getAttribute(COL_ATTRIBUTE);
     let colCollection = getCollection(`[${COL_ATTRIBUTE}="${colAttrVal}"]`)
-    colCollection = removeInsertedCellFromCollection(colCollection, event.target);
+    colCollection = removeInsertedCellFromCollection(colCollection, cell);
     if (colCollection.length > 0) {
-      return doesCollectionContainInsertedValue(colCollection, event.target);
+      return doesCollectionContainInsertedValue(colCollection, cell);
     }
     return true;
   }
 
-  function isInvalidSquare(event) {
-    let sqrNr = event.target.getAttribute(SQR_ATTRIBUTE);
+  function isInvalidSquare(cell) {
+    let sqrNr = cell.getAttribute(SQR_ATTRIBUTE);
     let sqrCollection = getCollection(`[${SQR_ATTRIBUTE}="${sqrNr}"]`);
-    sqrCollection = removeInsertedCellFromCollection(sqrCollection, event.target);
+    sqrCollection = removeInsertedCellFromCollection(sqrCollection, cell);
     if (sqrCollection.length > 0) {
-      return doesCollectionContainInsertedValue(sqrCollection, event.target);
+      return doesCollectionContainInsertedValue(sqrCollection, cell);
     }
     return true;
   }
@@ -159,28 +190,50 @@ sprawdz czy w kwadracie
         result = true;
       }
     })
-
-
     return result;
+  }
+  function isInputUnique(cell) {
+    if (isInvalidCollection(cell,ROW_ATTRIBUTE)) {
+      clearValue(event.target);
+      return false;
+    }
+    if (isInvalidCollection(cell,COL_ATTRIBUTE)) {
+      clearValue(event.target);
+      return false;
+    }
+    if (isInvalidCollection(cell,SQR_ATTRIBUTE)) {
+      clearValue(event.target);
+      return false;
+    }
+    return true
   }
 
   function isInputValid(event) {
+    if(event.target.value == ''){
+      return true;
+    }
     if (!checkIsInputNumber(event)) {
       clearValue(event.target);
       return false;
     }
+    //isInvalidCollection(cell, attr)
+    if(isInputUnique(event.target)) {
+      return true
+    }
+    /*
     if (isInvalidRow(event.target)) {
       clearValue(event.target);
       return false;
     }
-    if (isInvalidCol(event)) {
+    if (isInvalidCol(event.target)) {
       clearValue(event.target);
       return false;
     }
-    if (isInvalidSquare(event)) {
+    if (isInvalidSquare(event.target)) {
       clearValue(event.target);
       return false;
     }
+    */
     return true;
   }
 
@@ -231,10 +284,18 @@ sprawdz czy w kwadracie
   }
 
   function giveInvalidClass(cell) {
+    if(isTableBuild){
+      cell.parentNode.classList.add('invalid-field')
+      window.setTimeout(function() {
+        cell.parentNode.classList.remove('invalid-field')
+      }, 2000);
+    }
+    /*
     cell.parentNode.classList.add('invalid-field')
     window.setTimeout(function() {
       cell.parentNode.classList.remove('invalid-field')
     }, 2000);
+    */
   }
 
   //pobierz komorke, losuj wiersz, losuj kolumne, losuj liczbe, sprawdz czy prawidłowe,
@@ -242,7 +303,9 @@ sprawdz czy w kwadracie
   function populateCells() {
     let cell = getCell(getRandomArbitrary(START_NUMBER,END_NUMBER),getRandomArbitrary(START_NUMBER,END_NUMBER));
     let randomValue = getRandomArbitrary(START_NUMBER,END_NUMBER);
-    cell.value = randomValue
+    if (!cell.value) {
+      cell.value = randomValue
+    }
     return cell;
   }
   function getRandomArbitrary(min, max) {
@@ -256,7 +319,7 @@ sprawdz czy w kwadracie
     })
     return cell[0];
   }
-  console.log(Math.round(getRandomArbitrary(1,9)));
+
 
 //data-target-row="row-9" data-target-col="col-1"
 
