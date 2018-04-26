@@ -63,3 +63,6 @@ input:focus{
 .invalid-field {
   background: red;;
 }
+input[readonly] {
+    background-color: yellow;
+}

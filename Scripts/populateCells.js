@@ -1,10 +1,53 @@
 (function(window) {
-  'use strict';
-  var Sudoku = window.Sudoku || {};
-  var Table = {};
+  let Sudoku = window.Sudoku;
 
+  function populateCells(table, variables, validation, helperFunctions) {
 
+    let populatedCellsCounter = 0;
 
-  Sudoku.Table = Table;
+    while (populatedCellsCounter < variables.MAX_CELLS_TO_BE_POPULATED) {
+      let cell = insertValueIntoCell()
+
+      if (validation.isInputUnique(cell)) {
+        populatedCellsCounter++;
+        cell.setAttribute('readonly','true')
+      } else {
+        helperFunctions.clearValue(cell);
+      }
+    };
+    variables.isTableBuild = true;
+
+    function insertValueIntoCell() {
+      let colNr = getRandomArbitrary(variables.TABLE_START, variables.TABLE_END)
+      let rowNr = getRandomArbitrary(variables.TABLE_START, variables.TABLE_END)
+      let randomValue = getRandomArbitrary(variables.TABLE_START, variables.TABLE_END);
+      let cell = getCell(rowNr, colNr);
+
+      if (!cell.value) {
+        cell.value = randomValue
+      }
+      return cell;
+    }
+
+    function getRandomArbitrary(startRange, endRange) {
+      return Math.round(Math.random() * (endRange - startRange) + startRange);
+    }
+
+    function getCell(row, col) {
+      let cellsInRow = getCollection(`[${variables.ROW_ATTRIBUTE}="${row}"]`);
+      let cells = cellsInRow.filter(cellInRow => {
+        return cellInRow.getAttribute(variables.COL_ATTRIBUTE) == col;
+      })
+      return cells[0];
+    }
+
+    function getCollection(attribute) {
+      return [...document.querySelectorAll(attribute)];
+    }
+
+    return table;
+  }
+
+  Sudoku.populateCells = populateCells;
   window.Sudoku = Sudoku;
-})(window);
+})(window)
