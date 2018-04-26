@@ -53,12 +53,13 @@
     }
 
     function isInputValid(event) {
+
       let cell = event.target;
       if (cell.value == '') {
         return true;
       }
 
-      if (!checkIsInputNumber(event.data)) {
+      if (!checkIsInputNumber(cell.value)) {
         helperFunctions.clearValue(cell);
         return false;
       }
