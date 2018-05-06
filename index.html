@@ -6,7 +6,11 @@
     <link rel="stylesheet" href="Styles/main.css">
   </head>
   <body>
-
+  <button type="button" data-target="save-button">Save result</button>
+  <button type="button" data-target="load-button">Load last game</button>
+  <button type="button" data-target="new-game-button">New game</button>
+  <button type="button" data-target="clear-game-button">Clear game</button>
+  <p data-target="last-saved-game">Last saved game:</p>
   <div class="sudoku-container" data-target="sudoku-container"></div>
 
   <script type="text/javascript" src="Scripts/helperFunctions.js"></script>
@@ -14,6 +18,8 @@
   <script type="text/javascript" src="Scripts/createTable.js"></script>
   <script type="text/javascript" src="Scripts/populateCells.js"></script>
   <script type="text/javascript" src="Scripts/validation.js"></script>
+  <script type="text/javascript" src="Scripts/saveTable.js"></script>
+  <script type="text/javascript" src="Scripts/loadGame.js"></script>
   <script type="text/javascript" src="Scripts/main.js"></script>
 
 

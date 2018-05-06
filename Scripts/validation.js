@@ -36,6 +36,7 @@
       let result = false;
       collection.forEach(cell => {
         if (cell.value === insertedValue.value) {
+
           giveInvalidClass(cell);
           result = true;
         }
@@ -44,6 +45,7 @@
     }
 
     function giveInvalidClass(cell) {
+      console.log(variables.isTableBuild);
       if (variables.isTableBuild) {
         cell.parentNode.classList.add('invalid-field')
         window.setTimeout(() => {
@@ -73,10 +75,10 @@
 
 
     obj = {
-      isInputUnique: isInputUnique,
-      checkIsInputNumber: checkIsInputNumber,
-      isUniqueInCollection: isUniqueInCollection,
-      isInputValid: isInputValid
+      isInputUnique,
+      checkIsInputNumber,
+      isUniqueInCollection,
+      isInputValid
     }
     return obj;
   }

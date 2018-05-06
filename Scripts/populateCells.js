@@ -1,21 +1,29 @@
 (function(window) {
   let Sudoku = window.Sudoku;
 
-  function populateCells(table, variables, validation, helperFunctions) {
+  function populateCells( variables, validation, helperFunctions) {
+    let obj = {};
 
-    let populatedCellsCounter = 0;
+    function insertValues() {
+      if(!variables.isTableBuild){
+        let populatedCellsCounter = 0;
+        while (populatedCellsCounter < variables.MAX_CELLS_TO_BE_POPULATED) {
+          let cell = insertValueIntoCell()
 
-    while (populatedCellsCounter < variables.MAX_CELLS_TO_BE_POPULATED) {
-      let cell = insertValueIntoCell()
-
-      if (validation.isInputUnique(cell)) {
-        populatedCellsCounter++;
-        cell.setAttribute('readonly','true')
-      } else {
-        helperFunctions.clearValue(cell);
+          if (validation.isInputUnique(cell)) {
+            populatedCellsCounter++;
+            cell.setAttribute('readonly','true')
+          } else {
+            helperFunctions.clearValue(cell);
+          }
+        };
+        variables.isTableBuild = true;
       }
-    };
-    variables.isTableBuild = true;
+
+      return;
+    }
+
+
 
     function insertValueIntoCell() {
       let colNr = getRandomArbitrary(variables.TABLE_START, variables.TABLE_END)
@@ -44,8 +52,12 @@
     function getCollection(attribute) {
       return [...document.querySelectorAll(attribute)];
     }
+    obj = {
+      insertValues
+    }
 
-    return table;
+    return obj;
+    //return table;
   }
 
   Sudoku.populateCells = populateCells;

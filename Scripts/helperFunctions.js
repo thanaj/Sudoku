@@ -23,10 +23,34 @@
       cell.value = '';
     }
 
+    function getCurrentDateAndTime() {
+      let today = new Date();
+      let dd = today.getDate();
+      let mm = today.getMonth() + 1;
+      let yyyy = today.getFullYear();
+      let hh = today.getHours();
+      let min = today.getMinutes();
+
+      dd = add0toTimeValue(dd)
+      mm = add0toTimeValue(mm)
+      min = add0toTimeValue(min)
+      return `${yyyy}-${mm}-${dd} ${hh}:${min}`
+    }
+
+    function add0toTimeValue(timeValue) {
+      return timeValue < 10 ? '0' + timeValue : timeValue;
+    }
+    function clearGame(variables) {
+      console.log('kasowane')
+      let table = document.querySelector(variables.SUDOKU_CONTAINER_SELECTOR)
+      return table.firstChild.remove();
+    }
     obj = {
-      getCollection: getCollection,
-      removeInsertedCellFromCollection: removeInsertedCellFromCollection,
-      clearValue: clearValue
+      getCollection,
+      removeInsertedCellFromCollection,
+      clearValue,
+      getCurrentDateAndTime,
+      clearGame
     }
     return obj;
   }

@@ -3,7 +3,7 @@
   let Sudoku = window.Sudoku || {};
 
   function Variables() {
-    let obj = {};
+    const obj = {};
     obj.SUDOKU_CONTAINER_SELECTOR = '[data-target="sudoku-container"]'
     obj.TABLE_START = 1;
     obj.TABLE_WIDTH = 9;
@@ -28,7 +28,12 @@
     obj.BTN_CREATE_SUDOKU_SELECTOR = '[data-target="btn-create-sudoku"]';
     obj.VALIDATION_BANNER_SELECTOR = '[data-target="validation-banner"]';
     obj.VALIDATION_BANNER_SELECTOR = '[data-target="validation-banner"]';
-    obj.INPUT_FIELD_SELECTOR = '[class="main-field"]'
+    obj.INPUT_FIELD_SELECTOR = '[class="main-field"]';
+    obj.SAVE_BUTTON_SELECTOR = '[data-target="save-button"]';
+    obj.NEW_GAME_BUTTON_SELECTOR = '[data-target="new-game-button"]';
+    obj.LOAD_GAME_BUTTON_SELECTOR = '[data-target="load-button"]';
+    obj.CLEAR_GAME_BUTTON_SELECTOR = '[data-target="clear-game-button"]';
+    obj.propInLocalStorage = 'Sudoku';
     obj.isTableBuild = false;
 
     return obj;

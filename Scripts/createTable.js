@@ -1,19 +1,9 @@
 (function(window) {
   let Sudoku = window.Sudoku;
 
-  function createTable(variables) {
-    let table = document.createElement('table')
-    for (let row = variables.TABLE_START; row <= variables.TABLE_HEIGHT; row++) {
-      let currentRow = document.createElement('tr')
-      for (let column = variables.TABLE_START; column <= variables.TABLE_WIDTH; column++) {
-        let cell = createCell(row, column);
-        cell.appendChild(createHelpField())
-        cell.appendChild(createInputField(row, column))
-        currentRow.appendChild(cell)
-      }
-      table.appendChild(currentRow)
-    }
-
+  function createTable(variables, validation) {
+    let table = document.createElement('table');
+    let sudokuContainer = getSudokuContainer(variables);
 
     function createCell(row, col) {
       let cell = document.createElement('td');
@@ -66,7 +56,35 @@
       }
     }
 
-    return table;
+    function getSudokuContainer(variables) {
+      //let sudokuContainer = document.querySelector(variables.SUDOKU_CONTAINER_SELECTOR);
+      return document.querySelector(variables.SUDOKU_CONTAINER_SELECTOR);
+    }
+    //let sudokuContainer = document.querySelector(variables.SUDOKU_CONTAINER_SELECTOR);
+    function addEventListenersToInputFields(variables, validation) {
+
+      let inputFields = document.querySelectorAll(variables.INPUT_FIELD_SELECTOR);
+      inputFields = [...inputFields];
+
+      inputFields.forEach(function(input) {
+        input.addEventListener('input', validation.isInputValid)
+      })
+    }
+
+    for (let row = variables.TABLE_START; row <= variables.TABLE_HEIGHT; row++) {
+      let currentRow = document.createElement('tr')
+      for (let column = variables.TABLE_START; column <= variables.TABLE_WIDTH; column++) {
+        let cell = createCell(row, column);
+        cell.appendChild(createHelpField())
+        cell.appendChild(createInputField(row, column))
+        currentRow.appendChild(cell)
+      }
+      table.appendChild(currentRow)
+    }
+    sudokuContainer.appendChild(table)
+    addEventListenersToInputFields(variables, validation);
+
+    return ;
   }
 
 
