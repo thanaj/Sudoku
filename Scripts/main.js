@@ -8,11 +8,12 @@
 
 
   let localStorage = window.localStorage;
+  let loadGame = new Sudoku.loadGame(variables,localStorage);
   let saveButton = document.querySelector(variables.SAVE_BUTTON_SELECTOR);
   let newGameButton = document.querySelector(variables.NEW_GAME_BUTTON_SELECTOR);
   let loadGameButton = document.querySelector(variables.LOAD_GAME_BUTTON_SELECTOR);
   let clearGameButton = document.querySelector(variables.CLEAR_GAME_BUTTON_SELECTOR);
-  let loadGame = new Sudoku.loadGame(variables,localStorage);
+  
 
   Sudoku.createTable(variables,validation)
 
@@ -22,4 +23,5 @@
   loadGameButton.addEventListener('click',loadGame.putSavedValuesIntoTable);
   clearGameButton.addEventListener('click',populateCells.insertValues)
 
+  //ładowanie daty z magazynu sieciowego, informacja, ze zostanie tam zapisane, czyszczenie tablicy
 })(window)
