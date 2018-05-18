@@ -41,7 +41,6 @@
       return timeValue < 10 ? '0' + timeValue : timeValue;
     }
     function clearGame(variables) {
-      console.log('kasowane')
       let table = document.querySelector(variables.SUDOKU_CONTAINER_SELECTOR)
       return table.firstChild.remove();
     }

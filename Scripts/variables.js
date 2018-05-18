@@ -35,7 +35,10 @@
     obj.CLEAR_GAME_BUTTON_SELECTOR = '[data-target="clear-game-button"]';
     obj.propInLocalStorage = 'Sudoku';
     obj.isTableBuild = false;
-
+    obj.rowPosition = 3;
+    obj.colPosition = 7;
+    //obj.tableTag = 'table';
+    //obj.trTag = 'tr';
     return obj;
   }
 

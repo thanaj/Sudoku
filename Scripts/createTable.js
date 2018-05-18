@@ -5,6 +5,11 @@
     let table = document.createElement('table');
     let sudokuContainer = getSudokuContainer(variables);
 
+    function getSudokuContainer(variables) {
+      //let sudokuContainer = document.querySelector(variables.SUDOKU_CONTAINER_SELECTOR);
+      return document.querySelector(variables.SUDOKU_CONTAINER_SELECTOR);
+    }
+
     function createCell(row, col) {
       let cell = document.createElement('td');
       cell.classList.add('class', `row-${row}`);
@@ -56,10 +61,7 @@
       }
     }
 
-    function getSudokuContainer(variables) {
-      //let sudokuContainer = document.querySelector(variables.SUDOKU_CONTAINER_SELECTOR);
-      return document.querySelector(variables.SUDOKU_CONTAINER_SELECTOR);
-    }
+
     //let sudokuContainer = document.querySelector(variables.SUDOKU_CONTAINER_SELECTOR);
     function addEventListenersToInputFields(variables, validation) {
 
