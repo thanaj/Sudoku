@@ -27,9 +27,12 @@ obj.SAVE_BUTTON_SELECTOR = '[data-target="save-button"]';
 obj.NEW_GAME_BUTTON_SELECTOR = '[data-target="new-game-button"]';
 obj.LOAD_GAME_BUTTON_SELECTOR = '[data-target="load-button"]';
 obj.CLEAR_GAME_BUTTON_SELECTOR = '[data-target="clear-game-button"]';
+obj.LAST_SAVE_SELECTOR = '[data-target="last-saved-game"]';
+obj.CLEAR_SAVE_SELECTOR = '[data-target="clear-save-button"]';
 obj.propInLocalStorage = 'Sudoku';
 obj.isTableBuild = false;
 obj.rowPosition = 3;
 obj.colPosition = 7;
+obj.ALL_FIELDS_SELECTOR= '[type="text"]';
 
 export default obj;

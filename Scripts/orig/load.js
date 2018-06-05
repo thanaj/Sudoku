@@ -2,16 +2,27 @@ import variables from './variables.js';
 let obj = {}
 
 function getSavedGame(propertyName) {
-
-  return JSON.parse(localStorage[propertyName]);
+  if(localStorage[propertyName]){
+    return JSON.parse(localStorage[propertyName]);
+  }
+  return null;
 }
 
 function putSavedValuesIntoTable(rowPosition,colPosition) {
   let values = getSavedGame(variables.propInLocalStorage);
+  let lastSaveInfo = document.querySelector(variables.LAST_SAVE_SELECTOR);
   let row;
   let col;
   let value;
   let inputField;
+
+  if(!values) {
+    lastSaveInfo.innerHTML = "Nothing to load";
+    window.setTimeout(function(){
+      lastSaveInfo.innerHTML = " "
+    },5000);
+    return;
+  }
   values = values.value
 
   for(let value in values) {

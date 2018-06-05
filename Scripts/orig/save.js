@@ -1,10 +1,7 @@
 import variables from './variables.js';
 import {default as helperFunctions} from './helper.js';
 
-
 let obj = {};
-let inputFields = document.querySelectorAll(variables.INPUT_FIELD_SELECTOR);
-inputFields = [...inputFields];
 
 function getValuesFromFields() {
   let objWithValues = {};
@@ -12,6 +9,9 @@ function getValuesFromFields() {
   let row;
   let col;
   let date = new Date();
+  let value;
+  let inputFields = document.querySelectorAll(variables.INPUT_FIELD_SELECTOR);
+  inputFields = [...inputFields];
 
   inputFields.forEach(function(field) {
     if (field.value) {
@@ -29,6 +29,11 @@ function getValuesFromFields() {
 function saveInLocalStorage() {
   let objWithValues = getValuesFromFields();
   objWithValues = JSON.stringify(objWithValues);
+  Object.defineProperty(localStorage,variables.propInLocalStorage, {
+    configurable:true,
+    writable:true
+  });
+  console.log(Object.getOwnPropertyDescriptor(localStorage,variables.propInLocalStorage))
   localStorage[variables.propInLocalStorage] = objWithValues;
 }
 

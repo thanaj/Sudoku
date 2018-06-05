@@ -43,7 +43,7 @@ function add0toTimeValue(timeValue) {
 }
 
 function clearGame() {
-  let elements = document.querySelectorAll('[type="text"]')
+  let elements = document.querySelectorAll(variables.ALL_FIELDS_SELECTOR)
   elements.forEach(function(element){
     if(element.value) {
       element.value = "";
@@ -55,13 +55,35 @@ function clearGame() {
   variables.isTableBuild = false;
   return
 }
+function getLastSavedGame() {
+  let localStorage = window.localStorage[variables.propInLocalStorage];
+  let object;
+  let lastSaveInfo;
+  if(localStorage){
+    lastSaveInfo = document.querySelector(variables.LAST_SAVE_SELECTOR);
+    object = JSON.parse(localStorage)
+    lastSaveInfo.innerHTML= `Last saved at: ${object.date}`
+  }
+}
+function clearSave() {
+  let localStorage = window.localStorage;
+  if(localStorage[variables.propInLocalStorage]){
+    console.log(localStorage)// localStorage;
+    delete localStorage[variables.propInLocalStorage];
+    localStorage = ""
+  }
+}
+
+
 
 obj = {
   getCollection,
   removeInsertedCellFromCollection,
   clearValue,
   getCurrentDateAndTime,
-  clearGame
+  clearGame,
+  getLastSavedGame,
+  clearSave
 }
 
 export default obj;
