@@ -42,9 +42,18 @@ function add0toTimeValue(timeValue) {
   return timeValue < 10 ? '0' + timeValue : timeValue;
 }
 
-function clearGame(variables) {
-  let table = document.querySelector(variables.SUDOKU_CONTAINER_SELECTOR)
-  return table.firstChild.remove();
+function clearGame() {
+  let elements = document.querySelectorAll('[type="text"]')
+  elements.forEach(function(element){
+    if(element.value) {
+      element.value = "";
+    }
+    if(element.getAttribute('readonly')){
+      element.removeAttribute('readonly')
+    }
+  })
+  variables.isTableBuild = false;
+  return
 }
 
 obj = {
