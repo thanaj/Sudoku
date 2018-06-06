@@ -8,7 +8,10 @@ function getSavedGame(propertyName) {
   return null;
 }
 
-function putSavedValuesIntoTable(rowPosition,colPosition) {
+function putSavedValuesIntoTable() {
+  if(variables.isTableBuild) {
+    return
+  }
   let values = getSavedGame(variables.propInLocalStorage);
   let lastSaveInfo = document.querySelector(variables.LAST_SAVE_SELECTOR);
   let row;
