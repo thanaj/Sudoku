@@ -13,12 +13,12 @@ let clearGameButton = document.querySelector(variables.CLEAR_GAME_BUTTON_SELECTO
 let clearSaveutton = document.querySelector(variables.CLEAR_SAVE_SELECTOR);
 let localStorage = window.localStorage;
 
-//console.log('vari '+variables)
+
 table()
+helperFunctions.getLastSavedGame()
 
 saveButton.addEventListener('click',save.saveInLocalStorage);
 newGameButton.addEventListener('click',populate.insertValues);
 loadGameButton.addEventListener('click',load.putSavedValuesIntoTable);
-//clearGameButton.addEventListener('click',populate.insertValues);
 clearGameButton.addEventListener('click',helperFunctions.clearGame)
 clearSaveutton.addEventListener('click',helperFunctions.clearSave)

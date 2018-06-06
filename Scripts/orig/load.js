@@ -18,9 +18,9 @@ function putSavedValuesIntoTable(rowPosition,colPosition) {
 
   if(!values) {
     lastSaveInfo.innerHTML = "Nothing to load";
-    window.setTimeout(function(){
+    window.setTimeout( () => {
       lastSaveInfo.innerHTML = " "
-    },5000);
+    },3000);
     return;
   }
   values = values.value

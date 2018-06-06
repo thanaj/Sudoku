@@ -1,5 +1,5 @@
 import variables from './variables.js';
-import {default as helperFunctions} from './helper.js';
+import { default as helperFunctions } from './helper.js';
 
 let obj = {};
 
@@ -33,8 +33,8 @@ function saveInLocalStorage() {
     configurable:true,
     writable:true
   });
-  console.log(Object.getOwnPropertyDescriptor(localStorage,variables.propInLocalStorage))
   localStorage[variables.propInLocalStorage] = objWithValues;
+  helperFunctions.getLastSavedGame()
 }
 
 obj = {

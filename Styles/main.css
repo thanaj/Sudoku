@@ -46,17 +46,12 @@ td {
   height: 2.5rem;
 }
 input[class$="field"] {
-  /*
-  background: red;
-  */
   text-align: center;
 }
 input:focus{
   outline:none;
 }
-.sudoku-container {
-  margin-top: 4rem;
-}
+
 .validation-banner {
   font-size: 1.8rem,
 }
@@ -64,8 +59,9 @@ input:focus{
   background: red;;
 }
 input[readonly] {
-    background-color: yellow;
+    background-color: #F6EEEE;
 }
 .info-container{
-  height:2em;;
+  height:2rem;
+  padding:1rem;
 }

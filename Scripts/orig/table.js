@@ -1,5 +1,5 @@
 import variables from './variables.js';
-import {default as validation} from './validation';
+import { default as validation } from './validation';
 
 export default function CreateTable() {
   let table = document.createElement('table');
@@ -78,7 +78,7 @@ function getSquareNr(row, col) {
 
 function addEventListenersToInputFields(validationFn, inputFields) {
   inputFields = [...inputFields];
-  inputFields.forEach(function(input) {
+  inputFields.forEach( input =>
     input.addEventListener('input', validationFn)
-  })
+  )
 }
